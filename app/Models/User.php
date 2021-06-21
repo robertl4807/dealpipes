@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Traits\NoteTrait;
+use App\Traits\TagTrait;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -10,7 +12,7 @@ use Laravel\Cashier\Billable;
 
 class User extends Authenticatable
 {
-  use HasFactory, Notifiable, Billable;
+  use HasFactory, Notifiable, Billable, NoteTrait, TagTrait;
 
   /**
    * The attributes that are mass assignable.
@@ -55,10 +57,6 @@ class User extends Authenticatable
     return $this->hasMany(Lead::class);
   }
 
-  public function notes(){
-    return $this->hasMany(Note::class);
-  }
-
   public function campaigns(){
     return $this->hasMany(Campaign::class);
   }
@@ -69,10 +67,6 @@ class User extends Authenticatable
 
   public function cannedMessages(){
     return $this->hasMany(CannedMessages::class);
-  }
-
-  public function tags(){
-    return $this->hasMany(Tag::class);
   }
 
   public function wholesaleBuyers(){
