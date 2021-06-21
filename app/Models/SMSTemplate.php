@@ -7,5 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class SMSTemplate extends Model
 {
-    use HasFactory;
+  use HasFactory;
+
+  protected $guarded = ['id'];
+  protected $table = 'sms_templates';
+
+  public function user(){
+    return $this->belongsTo(User::class);
+  }
+
 }

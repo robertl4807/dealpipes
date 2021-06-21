@@ -51,6 +51,70 @@ class User extends Authenticatable
     return $this->hasOne(User::class, 'owner_id');
   }
 
+  public function leads(){
+    return $this->hasMany(Lead::class);
+  }
+
+  public function notes(){
+    return $this->hasMany(Note::class);
+  }
+
+  public function campaigns(){
+    return $this->hasMany(Campaign::class);
+  }
+
+  public function automations(){
+    return $this->hasMany(Automation::class);
+  }
+
+  public function cannedMessages(){
+    return $this->hasMany(CannedMessages::class);
+  }
+
+  public function tags(){
+    return $this->hasMany(Tag::class);
+  }
+
+  public function wholesaleBuyers(){
+    return $this->hasMany(WholesaleBuyer::class);
+  }
+
+  public function leadGrades(){
+    return $this->hasMany(LeadGrade::class);
+  }
+
+  public function leadCustomFields(){
+    return $this->hasMany(LeadCustomField::class);
+  }
+
+  public function taskTemplates(){
+    return $this->hasMany(TaskTemplate::class);
+  }
+
+  public function userSettings(){
+    return $this->hasMany(UserSettings::class);
+  }
+
+  public function emailTemplates(){
+    return $this->hasMany(EmailTemplate::class);
+  }
+
+  public function smsTemplates(){
+    return $this->hasMany(SMSTemplate::class);
+  }
+
+  public function skipTraces(){
+    return $this->hasMany(SkipTrace::class);
+  }
+
+  public function propertyDetails(){
+    return $this->hasMany(PropertyDetails::class);
+  }
+
+  public function propertyCustomFields(){
+    return $this->hasMany(PropertyCustomField::class);
+  }
+
 
   public function isActive(){
     return $this->attributes['active'];

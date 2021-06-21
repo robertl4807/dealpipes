@@ -15,6 +15,8 @@ class CreateLeadsTable extends Migration
   {
     Schema::create('leads', function (Blueprint $table) {
       $table->id();
+      $table->foreignId('user_id')->constrained('users');
+
       $table->timestamps();
     });
   }

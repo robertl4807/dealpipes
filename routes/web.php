@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/*
+* TODO List:
+ * Add owner has many through for user on various types
+ * 
+ *
+ */
+
+
 Route::get('/', function () {
   return view('welcome');
 });

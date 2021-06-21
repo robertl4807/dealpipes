@@ -15,6 +15,7 @@ class CreateCampaignsTable extends Migration
   {
     Schema::create('campaigns', function (Blueprint $table) {
       $table->id();
+      $table->foreignId('user_id')->constrained('users');
       $table->string('type')->index();
 
       $table->timestamps();

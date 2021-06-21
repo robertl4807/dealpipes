@@ -15,6 +15,8 @@ class CreateWholesaleBuyersTable extends Migration
   {
     Schema::create('wholesale_buyers', function (Blueprint $table) {
       $table->id();
+      $table->foreignId('user_id')->constrained('users');
+
       $table->timestamps();
     });
   }
