@@ -18,6 +18,8 @@ class CreateNotesTable extends Migration
       $table->foreignId('user_id')->constrained('users');
 
       $table->morphs('noteable');
+      //what section it's supposed to be listed at for on a specific page
+      $table->string('section')->nullable();
 
       $table->string('title')->nullable();
       $table->text('message');

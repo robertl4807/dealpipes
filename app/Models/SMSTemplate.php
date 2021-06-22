@@ -10,7 +10,7 @@ class SMSTemplate extends Model
   use HasFactory;
 
   protected $guarded = ['id'];
-  protected $table = 'sms_templates';
+  public $table = 'sms_templates';
 
   public function user(){
     return $this->belongsTo(User::class);

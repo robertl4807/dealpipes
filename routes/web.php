@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,11 +17,25 @@ use Illuminate\Support\Facades\Route;
 /*
 * TODO List:
  * Add owner has many through for user on various types
- * 
+ *
  *
  */
 
 
 Route::get('/', function () {
   return view('welcome');
+});
+
+Route::get('login', function(){
+  Auth::loginUsingId(1);
+  return 'Logged In Now';
+});
+
+Route::get('logout', function(){
+  Auth::logout();
+  return 'Logged Out';
+});
+
+Route::middleware('can:send_sms')->get('/1', function () {
+  return 'YES';
 });

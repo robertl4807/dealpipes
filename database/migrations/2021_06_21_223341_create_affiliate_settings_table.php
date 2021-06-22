@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLeadsTable extends Migration
+class CreateAffiliateSettingsTable extends Migration
 {
   /**
    * Run the migrations.
@@ -13,10 +13,9 @@ class CreateLeadsTable extends Migration
    */
   public function up()
   {
-    Schema::create('leads', function (Blueprint $table) {
+    Schema::create('affiliate_settings', function (Blueprint $table) {
       $table->id();
       $table->foreignId('user_id')->constrained('users');
-      $table->foreignId('lead_market_id')->nullable()->constrained('lead_markets');
 
       $table->timestamps();
     });
@@ -29,6 +28,6 @@ class CreateLeadsTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('leads');
+    Schema::dropIfExists('affiliate_settings');
   }
 }

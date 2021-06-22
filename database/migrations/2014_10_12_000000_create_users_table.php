@@ -26,6 +26,8 @@ class CreateUsersTable extends Migration
       $table->rememberToken();
 
       $table->boolean('active')->default(true);
+      $table->string('avatar_image')->nullable();
+      $table->string('address')->nullable();
 
       $table->timestamps();
     });

@@ -16,7 +16,7 @@ class CreatePropertyDetailsTable extends Migration
     Schema::create('property_details', function (Blueprint $table) {
       $table->id();
       $table->foreignId('user_id')->constrained('users');
-      $table->foreignId('lead_id')->constrained('lead');
+      $table->foreignId('lead_id')->constrained('leads');
 
       $table->string('property_street')->nullable();
       $table->string('property_city')->nullable();

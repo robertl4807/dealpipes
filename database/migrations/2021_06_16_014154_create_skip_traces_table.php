@@ -16,7 +16,7 @@ class CreateSkipTracesTable extends Migration
     Schema::create('skip_traces', function (Blueprint $table) {
       $table->id();
       $table->foreignId('user_id')->constrained('users');
-      $table->foreignId('lead_id')->constrained('lead');
+      $table->foreignId('lead_id')->constrained('leads');
 
       //for if we do validation
       $table->boolean('email_validated')->default(false);
