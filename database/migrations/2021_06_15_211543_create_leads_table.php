@@ -19,6 +19,7 @@ class CreateLeadsTable extends Migration
       $table->foreignId('lead_market_id')->nullable()->constrained('lead_markets');
 
       
+      
       $table->timestamps();
     });
   }
