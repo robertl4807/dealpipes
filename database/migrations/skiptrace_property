@@ -62,6 +62,48 @@ class CreateSkiptracePropertyTable extends Migration
       $table->string('last_sale_date')->nullable();
       $table->string('last_sale_amount')->nullable();
       
+      $table->string('mort1_recording_date')->nullable();
+      $table->string('mort1_position')->nullable();
+      $table->string('mort1_borrower')->nullable();
+      $table->string('mort1_lender')->nullable();
+      $table->string('mort1_description')->nullable();
+      $table->string('mort1_term')->nullable();
+      $table->string('mort1_amount')->nullable();
+      
+      $table->string('mort2_recording_date')->nullable();
+      $table->string('mort2_position')->nullable();
+      $table->string('mort2_borrower')->nullable();
+      $table->string('mort2_lender')->nullable();
+      $table->string('mort2_description')->nullable();
+      $table->string('mort2_term')->nullable();
+      $table->string('mort2_amount')->nullable();
+      
+      $table->string('mort3_recording_date')->nullable();
+      $table->string('mort3_position')->nullable();
+      $table->string('mort3_borrower')->nullable();
+      $table->string('mort3_lender')->nullable();
+      $table->string('mort3_description')->nullable();
+      $table->string('mort3_term')->nullable();
+      $table->string('mort3_amount')->nullable();
+
+      $table->string('hist1_recording_date')->nullable();
+      $table->string('hist1_grantor')->nullable();
+      $table->string('hist1_grantee')->nullable();
+      $table->string('hist1_doc_type')->nullable();
+      $table->string('hist1_sale_amount')->nullable();
+      
+      $table->string('hist2_recording_date')->nullable();
+      $table->string('hist2_grantor')->nullable();
+      $table->string('hist2_grantee')->nullable();
+      $table->string('hist2_doc_type')->nullable();
+      $table->string('hist2_sale_amount')->nullable();
+      
+      $table->string('hist3_recording_date')->nullable();
+      $table->string('hist3_grantor')->nullable();
+      $table->string('hist3_grantee')->nullable();
+      $table->string('hist3_doc_type')->nullable();
+      $table->string('hist3_sale_amount')->nullable();
+      
       $table->timestamps();
     });
   }
