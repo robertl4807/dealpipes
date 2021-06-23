@@ -18,6 +18,46 @@ class CreateSkiptracePropertyTable extends Migration
       $table->foreignId('user_id')->constrained('users');
 
 
+-------
+Vacant y/n/unknown
+Owner Occupied y/n/   or no-unknown
+Property owner name
+property type
+year built
+stories
+bedrooms
+baths
+sqft
+basement sqft
+assessor sqft total
+lot sqft
+potential equity (gets calculated)
+rent zestimate (pulled from Zillow)
+last sale date
+last sale amount
+last ownership transfer ???
+subdivision
+legal decsription
+fireplaces
+pool
+heating
+cooling
+(wall type) not in reipro
+(roof type) not in reipro
+---- Tax info  ----
+parcel #
+county
+owner name
+tax bill mailing address
+tax bill mailing city
+tax bill mailing state
+tax bill mailing zip
+tax year
+tax amount
+land market value
+market improvement value
+market value
+-------
 
       $table->timestamps();
     });
