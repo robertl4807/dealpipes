@@ -16,49 +16,52 @@ class CreateSkiptracePropertyTable extends Migration
     Schema::create('skiptrace_property', function (Blueprint $table) {
       $table->id();
       $table->foreignId('user_id')->constrained('users');
+      $table->foreignId('lead_id')->constrained('leads');
 
+      $table->string('property_street')->nullable();
+      $table->string('property_city')->nullable();
+      $table->string('property_state')->nullable();
+      $table->string('property_zip_code')->nullable();
 
--------
-Vacant y/n/unknown
-Owner Occupied y/n/   or no-unknown
-Property owner name
-property type
-year built
-stories
-bedrooms
-baths
-sqft
-basement sqft
-assessor sqft total
-lot sqft
-potential equity (gets calculated)
-rent zestimate (pulled from Zillow)
-last sale date
-last sale amount
-last ownership transfer ???
-subdivision
-legal decsription
-fireplaces
-pool
-heating
-cooling
-(wall type) not in reipro
-(roof type) not in reipro
----- Tax info  ----
-parcel #
-county
-owner name
-tax bill mailing address
-tax bill mailing city
-tax bill mailing state
-tax bill mailing zip
-tax year
-tax amount
-land market value
-market improvement value
-market value
--------
+      $table->string('owner_name')->nullable();
+      $table->string('vacant')->nullable();
+      $table->string('owner_occupied')->nullable();
 
+      $table->string('parcel_id')->nullable();
+      $table->string('county')->nullable();
+      $table->string('tax_owner_name')->nullable();
+      $table->string('tax_mailing_address')->nullable();
+      $table->string('tax_mailing_city')->nullable();
+      $table->string('tax_mailing_state')->nullable();
+      $table->string('tax_mailing_zip')->nullable();
+      $table->string('tax_year')->nullable();
+      $table->string('tax_amount')->nullable();
+      $table->string('tax_land_value')->nullable();
+      $table->string('tax_improvement_value')->nullable();
+      $table->string('tax_market_value')->nullable();
+      
+      $table->string('subdivision')->nullable();
+      $table->string('legal_description')->nullable();
+         
+      $table->string('property_type')->nullable();
+      $table->string('year_built')->nullable();
+      $table->string('stories')->nullable();
+      $table->string('bedrooms')->nullable();
+      $table->string('baths')->nullable();
+      $table->string('sqft')->nullable();
+      $table->string('basement_sqft')->nullable();
+      $table->string('assessor_sqft_total')->nullable();
+      $table->string('lot_sqft')->nullable();
+      $table->string('fireplaces')->nullable();
+      $table->string('pool')->nullable();
+      $table->string('heating')->nullable();
+      $table->string('cooling')->nullable();
+      $table->string('wall_type')->nullable();
+      $table->string('roof_type')->nullable();
+      
+      $table->string('last_sale_date')->nullable();
+      $table->string('last_sale_amount')->nullable();
+      
       $table->timestamps();
     });
   }
