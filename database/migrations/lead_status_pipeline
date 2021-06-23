@@ -18,7 +18,7 @@ class CreateLeadStatusPipelineTable extends Migration
       $table->foreignId('user_id')->constrained('users');
       $table->foreignId('lead_id')->constrained('leads');
       
-      //used to title tag each stage of their pipeline and what order to show the stages
+      //used to title each stage of their pipeline and what order to show the stages then leads show in the stage the lead is tagged as
       
       $table->string('title');
       $table->unsignedInteger('position_order');
