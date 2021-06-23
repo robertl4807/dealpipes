@@ -18,9 +18,12 @@ class CreateTagsTable extends Migration
       $table->foreignId('user_id')->constrained('users');
 
       $table->morphs('taggable');
+      
+      //tag types are pipeline and lead type and seller motivations 
 
       $table->string('type');
       $table->string('title');
+      $table->unsignedInteger('position_order')->nullable();
       $table->string('class')->nullable();
 
       $table->timestamps();
