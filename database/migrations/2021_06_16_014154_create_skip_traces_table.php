@@ -65,6 +65,17 @@ class CreateSkipTracesTable extends Migration
       $table->string('result_city4')->nullable();
       $table->string('result_state4')->nullable();
       $table->string('result_zip4')->nullable();
+      
+      $table->string('related_first_name')->nullable();
+      $table->string('realted_middle_name')->nullable();
+      $table->string('realted_last_name')->nullable();
+      $table->string('related_suffix')->nullable();
+      $table->string('related_phone')->nullable();
+      $table->string('related_email')->nullable();
+      $table->string('related_address')->nullable();
+      $table->string('related_city')->nullable();
+      $table->string('related_state')->nullable();
+      $table->string('related_zip')->nullable();
 
       $table->timestamps();
     });
