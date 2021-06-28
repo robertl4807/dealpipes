@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateSkiptracePropertyTable extends Migration
+class CreateSkipTracePropertiesTable extends Migration
 {
   /**
    * Run the migrations.
@@ -13,7 +13,7 @@ class CreateSkiptracePropertyTable extends Migration
    */
   public function up()
   {
-    Schema::create('skiptrace_property', function (Blueprint $table) {
+    Schema::create('skip_trace_properties', function (Blueprint $table) {
       $table->id();
       $table->foreignId('user_id')->constrained('users');
       $table->foreignId('lead_id')->constrained('leads');
@@ -39,10 +39,10 @@ class CreateSkiptracePropertyTable extends Migration
       $table->string('tax_land_value')->nullable();
       $table->string('tax_improvement_value')->nullable();
       $table->string('tax_market_value')->nullable();
-      
+
       $table->string('subdivision')->nullable();
       $table->string('legal_description')->nullable();
-         
+
       $table->string('property_type')->nullable();
       $table->string('year_built')->nullable();
       $table->string('stories')->nullable();
@@ -58,10 +58,10 @@ class CreateSkiptracePropertyTable extends Migration
       $table->string('cooling')->nullable();
       $table->string('wall_type')->nullable();
       $table->string('roof_type')->nullable();
-      
+
       $table->string('last_sale_date')->nullable();
       $table->string('last_sale_amount')->nullable();
-      
+
       $table->string('mort1_recording_date')->nullable();
       $table->string('mort1_position')->nullable();
       $table->string('mort1_borrower')->nullable();
@@ -69,7 +69,7 @@ class CreateSkiptracePropertyTable extends Migration
       $table->string('mort1_description')->nullable();
       $table->string('mort1_term')->nullable();
       $table->string('mort1_amount')->nullable();
-      
+
       $table->string('mort2_recording_date')->nullable();
       $table->string('mort2_position')->nullable();
       $table->string('mort2_borrower')->nullable();
@@ -77,7 +77,7 @@ class CreateSkiptracePropertyTable extends Migration
       $table->string('mort2_description')->nullable();
       $table->string('mort2_term')->nullable();
       $table->string('mort2_amount')->nullable();
-      
+
       $table->string('mort3_recording_date')->nullable();
       $table->string('mort3_position')->nullable();
       $table->string('mort3_borrower')->nullable();
@@ -91,20 +91,18 @@ class CreateSkiptracePropertyTable extends Migration
       $table->string('hist1_grantee')->nullable();
       $table->string('hist1_doc_type')->nullable();
       $table->string('hist1_sale_amount')->nullable();
-      
+
       $table->string('hist2_recording_date')->nullable();
       $table->string('hist2_grantor')->nullable();
       $table->string('hist2_grantee')->nullable();
       $table->string('hist2_doc_type')->nullable();
       $table->string('hist2_sale_amount')->nullable();
-      
+
       $table->string('hist3_recording_date')->nullable();
       $table->string('hist3_grantor')->nullable();
       $table->string('hist3_grantee')->nullable();
       $table->string('hist3_doc_type')->nullable();
       $table->string('hist3_sale_amount')->nullable();
-      
-      $table->timestamps();
     });
   }
 
@@ -115,6 +113,6 @@ class CreateSkiptracePropertyTable extends Migration
    */
   public function down()
   {
-    Schema::dropIfExists('skiptrace_property');
+    Schema::dropIfExists('skip_trace_properties');
   }
 }
