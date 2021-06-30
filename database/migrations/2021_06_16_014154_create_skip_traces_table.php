@@ -66,16 +66,49 @@ class CreateSkipTracesTable extends Migration
       $table->string('result_state4')->nullable();
       $table->string('result_zip4')->nullable();
 
-      $table->string('related_first_name')->nullable();
-      $table->string('related_middle_name')->nullable();
-      $table->string('related_last_name')->nullable();
-      $table->string('related_suffix')->nullable();
-      $table->string('related_phone')->nullable();
-      $table->string('related_email')->nullable();
-      $table->string('related_address')->nullable();
-      $table->string('related_city')->nullable();
-      $table->string('related_state')->nullable();
-      $table->string('related_zip')->nullable();
+      $table->string('related1_first_name')->nullable();
+      $table->string('related1_middle_name')->nullable();
+      $table->string('related1_last_name')->nullable();
+      $table->string('related1_suffix')->nullable();
+      $table->string('related1_phone')->nullable();
+      $table->string('related1_email')->nullable();
+      $table->string('related1_address')->nullable();
+      $table->string('related1_city')->nullable();
+      $table->string('related1_state')->nullable();
+      $table->string('related1_zip')->nullable();
+      
+      $table->string('related2_first_name')->nullable();
+      $table->string('related2_middle_name')->nullable();
+      $table->string('related2_last_name')->nullable();
+      $table->string('related2_suffix')->nullable();
+      $table->string('related2_phone')->nullable();
+      $table->string('related2_email')->nullable();
+      $table->string('related2_address')->nullable();
+      $table->string('related2_city')->nullable();
+      $table->string('related2_state')->nullable();
+      $table->string('related2_zip')->nullable();
+      
+      $table->string('related3_first_name')->nullable();
+      $table->string('related3_middle_name')->nullable();
+      $table->string('related3_last_name')->nullable();
+      $table->string('related3_suffix')->nullable();
+      $table->string('related3_phone')->nullable();
+      $table->string('related3_email')->nullable();
+      $table->string('related3_address')->nullable();
+      $table->string('related3_city')->nullable();
+      $table->string('related3_state')->nullable();
+      $table->string('related3_zip')->nullable();
+      
+      $table->string('related4_first_name')->nullable();
+      $table->string('related4_middle_name')->nullable();
+      $table->string('related4_last_name')->nullable();
+      $table->string('related4_suffix')->nullable();
+      $table->string('related4_phone')->nullable();
+      $table->string('related4_email')->nullable();
+      $table->string('related4_address')->nullable();
+      $table->string('related4_city')->nullable();
+      $table->string('related4_state')->nullable();
+      $table->string('related4_zip')->nullable();
 
       $table->timestamps();
     });
