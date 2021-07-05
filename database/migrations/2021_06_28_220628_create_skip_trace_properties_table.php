@@ -25,7 +25,21 @@ class CreateSkipTracePropertiesTable extends Migration
       $table->string('property_state')->nullable();
       $table->string('property_zip_code')->nullable();
 
-      $table->string('owner_name')->nullable();
+      $table->string('owner1_name_first')->nullable();
+      $table->string('owner1_name_middle')->nullable();
+      $table->string('owner1_name_last')->nullable();
+      $table->string('owner1_name_suffix')->nullable();
+      
+      $table->string('owner2_name_first')->nullable();
+      $table->string('owner2_name_middle')->nullable();
+      $table->string('owner2_name_last')->nullable();
+      $table->string('owner2_name_suffix')->nullable();
+      
+      $table->string('owner3_name_first')->nullable();
+      $table->string('owner3_name_middle')->nullable();
+      $table->string('owner3_name_last')->nullable();
+      $table->string('owner3_name_suffix')->nullable();
+       
       $table->string('vacant')->nullable();
       $table->string('owner_occupied')->nullable();
 
@@ -89,22 +103,43 @@ class CreateSkipTracePropertiesTable extends Migration
       $table->string('mort3_amount')->nullable();
 
       $table->string('hist1_recording_date')->nullable();
+      $table->string('hist1_saletransdate')->nullable();
+      $table->string('hist1_salesearchdate')->nullable();
       $table->string('hist1_grantor')->nullable();
       $table->string('hist1_grantee')->nullable();
       $table->string('hist1_doc_type')->nullable();
       $table->string('hist1_sale_amount')->nullable();
-
+      $table->string('hist1_saledisclosuretype')->nullable();
+      $table->string('hist1_saledocnum')->nullable();
+      $table->string('hist1_saletranstype')->nullable();
+      $table->string('hist1_priceperbed')->nullable();
+      $table->string('hist1_privepersizeunit')->nullable();
+      
       $table->string('hist2_recording_date')->nullable();
+      $table->string('hist2_saletransdate')->nullable();
+      $table->string('hist2_salesearchdate')->nullable();
       $table->string('hist2_grantor')->nullable();
       $table->string('hist2_grantee')->nullable();
       $table->string('hist2_doc_type')->nullable();
       $table->string('hist2_sale_amount')->nullable();
+      $table->string('hist2_saledisclosuretype')->nullable();
+      $table->string('hist2_saledocnum')->nullable();
+      $table->string('hist2_saletranstype')->nullable();
+      $table->string('hist2_priceperbed')->nullable();
+      $table->string('hist2_privepersizeunit')->nullable();
 
       $table->string('hist3_recording_date')->nullable();
+      $table->string('hist3_saletransdate')->nullable();
+      $table->string('hist3_salesearchdate')->nullable();
       $table->string('hist3_grantor')->nullable();
       $table->string('hist3_grantee')->nullable();
       $table->string('hist3_doc_type')->nullable();
       $table->string('hist3_sale_amount')->nullable();
+      $table->string('hist3_saledisclosuretype')->nullable();
+      $table->string('hist3_saledocnum')->nullable();
+      $table->string('hist3_saletranstype')->nullable();
+      $table->string('hist3_priceperbed')->nullable();
+      $table->string('hist3_privepersizeunit')->nullable();
     });
   }
 
