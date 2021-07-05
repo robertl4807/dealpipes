@@ -17,6 +17,8 @@ class CreateSkipTracePropertiesTable extends Migration
       $table->id();
       $table->foreignId('user_id')->constrained('users');
       $table->foreignId('lead_id')->constrained('leads');
+      
+      $table->string('attom_id')->nullable();
 
       $table->string('property_street')->nullable();
       $table->string('property_city')->nullable();
