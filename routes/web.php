@@ -1,6 +1,8 @@
 <?php
 
+use App\Mail\TestMailHog;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,6 +43,7 @@ Route::middleware('can:send_sms')->get('/1', function () {
 });
 
 Route::get('test-mailhog', function(){
-
+  Mail::to('info@dealpipes.test')->send(new TestMailHog());
+  return 'Sent email - '.rand(1,10000);
 });
 
