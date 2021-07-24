@@ -39,3 +39,8 @@ Route::get('logout', function(){
 Route::middleware('can:send_sms')->get('/1', function () {
   return 'YES';
 });
+
+Route::get('test-mailhog', function(){
+
+});
+
