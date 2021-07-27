@@ -25,13 +25,22 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', function () {
-  return view('welcome');
+  return view('home');
 });
+
+Route::get('dashboard', [App\Http\Controllers\AdminController::class, 'index'])->name('index');
+
+Route::get('signup', function(){
+  return view('auth/signup');
+})->name('signup');
+
+Route::post('signup', [App\Http\Controllers\Auth\RegisterController::class, 'signup'])->name('signup');
 
 Route::get('login', function(){
   Auth::loginUsingId(1);
   return 'Logged In Now';
 });
+
 
 Route::get('logout', function(){
   Auth::logout();
@@ -47,3 +56,5 @@ Route::get('test-mailhog', function(){
   return 'Sent email - '.rand(1,10000);
 });
 
+
+Route::get('index/{locale}', [App\Http\Controllers\AdminController::class, 'lang']);
