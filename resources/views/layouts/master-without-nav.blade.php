@@ -11,13 +11,20 @@
         <meta content="Themesbrand" name="author" />
         <!-- App favicon -->
         <link rel="shortcut icon" href="{{ URL::asset('assets/images/favicon.ico')}}">
+         <link
+             rel="stylesheet"
+             href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"
+           />
         @include('layouts.head-css')
   </head>
+    @yield('custom-css')
 
     @yield('body')
     
     @yield('content')
 
     @include('layouts.vendor-scripts')
+
+    @yield('custom-scripts') 
     </body>
 </html>

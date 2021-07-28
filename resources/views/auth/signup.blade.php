@@ -4,6 +4,15 @@
     @lang('translation.Login')
 @endsection
 
+@section('custom-css')
+<style type="text/css">
+.iti {
+    display: block !important; 
+}
+.phone-error{display: none;}
+</style>
+@endsection
+
 @section('body')
 
     <body>
@@ -50,14 +59,15 @@
                                     </a>
                                 </div>
                                 <div class="p-2">
-                                    <form class="form-horizontal" method="POST" action="{{ route('signup') }}">
+                                    <form id="form" class="form-horizontal" method="POST" action="{{ route('signup') }}" onsubmit="return process(event)">
                                         @csrf
                                          <div class="mb-3">
-                                            <label for="username" class="form-label">First Name</label>
+                                            <label for="first_name" class="form-label">First Name</label>
                                             <input name="first_name" type="text"
                                                 class="form-control @error('first_name') is-invalid @enderror"
+                                                value="{{ old('first_name') }}"
                                                  id="first_name"
-                                                placeholder="Enter First Name" autocomplete="email" autofocus>
+                                                placeholder="Enter First Name" autocomplete="first_name" autofocus>
                                             @error('first_name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -68,8 +78,9 @@
                                             <label for="username" class="form-label">Last Name</label>
                                             <input name="last_name" type="text"
                                                 class="form-control @error('last_name') is-invalid @enderror"
+                                                value="{{ old('last_name') }}"
                                                  id="last_name"
-                                                placeholder="Enter Last Name" autocomplete="email" autofocus>
+                                                placeholder="Enter Last Name" autocomplete="last_name" autofocus>
                                             @error('last_name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -80,7 +91,7 @@
                                             <label for="username" class="form-label">Email</label>
                                             <input name="email" type="email"
                                                 class="form-control @error('email') is-invalid @enderror"
-                                                value="{{ old('email', 'admin@themesbrand.com') }}" id="username"
+                                                value="{{ old('email') }}" id="username"
                                                 placeholder="Enter Email" autocomplete="email" autofocus>
                                             @error('email')
                                                 <span class="invalid-feedback" role="alert">
@@ -90,12 +101,15 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="username" class="form-label">Phone</label>
-                                            <input name="phone" type="phone"
+                                            <input name="phone" type="tel"
                                                 class="form-control @error('phone') is-invalid @enderror"
                                                  id="phone"
-                                                placeholder="Enter Phone No" autocomplete="phone" autofocus>
-                                            @error('last_name')
-                                                <span class="invalid-feedback" role="alert">
+                                                 value="{{ old('phone') }}"
+                                                autocomplete="phone" autofocus>
+                                                <span class="invalid-feedback phone-error" role="alert">
+                                                </span>
+                                            @error('phone')
+                                                <span class="invalid-feedback phone-error" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
                                             @enderror
@@ -105,7 +119,7 @@
                                             <input name="promo_code" type="text"
                                                 class="form-control @error('promo_code') is-invalid @enderror"
                                                  id="promo_code"
-                                                placeholder="Enter Promo Code" autocomplete="phone" autofocus>
+                                                placeholder="Enter Promo Code" autocomplete="promo_code" autofocus>
                                             @error('promo_code')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -144,3 +158,39 @@
         <!-- end account-pages -->
 
     @endsection
+
+@section('custom-scripts')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script type="text/javascript">
+const phoneInputField = document.querySelector("#phone");
+const phoneInput = window.intlTelInput(phoneInputField, {
+  preferredCountries: ["us", "co", "in", "de"],
+  nationalMode: true,
+  utilsScript:
+    "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+});
+var country = phoneInput.getSelectedCountryData().iso2;
+if($('#phone').val() !='')
+    phoneInput.setCountry(localStorage.getItem("country"));
+else
+    localStorage.setItem("country", country);
+
+const error = document.querySelector(".phone-error");
+function process(event) {
+    var country = phoneInput.getSelectedCountryData().iso2;
+    localStorage.setItem("country",country);  
+    const phoneNumber = phoneInput.getNumber();
+    
+    error.style.display = "none";
+
+    if (!phoneInput.isValidNumber()) {
+        error.style.display = "block";
+        error.innerHTML = `Invalid phone number.`;
+        error.classList.add("is-invalid");
+        return false;
+    }else
+        return true;
+        
+}
+</script>
+@endsection
