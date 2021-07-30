@@ -19,8 +19,8 @@
                                 <div class="row">
                                     <div class="col-7">
                                         <div class="text-primary p-4">
-                                            <h5 class="text-primary"> Verify Password</h5>
-                                            <p>Verify Password with Skote.</p>
+                                            <h5 class="text-primary"> Verify Email</h5>
+                                            
                                         </div>
                                     </div>
                                     <div class="col-5 align-self-end">
@@ -45,28 +45,45 @@
                                     </div>
                                 @endif
 
-                                {{ __('Before proceeding, please check your email for a verification link.') }}
-                                {{ __('If you did not receive the email') }},
-                                <div class="p-2">
-                                    <form class="form-horizontal" method="POST" action="{{ route('verification.resend') }}">
+                                {{ __('Before proceeding, please check your email for a verification code.') }}
+                                <form class="form-horizontal" method="POST" action="{{URL::to('verifyEmail')}}">
                                         @csrf
+                                <div class="row">
+                                <div class="col-sm-3"></div>
+                                    <div class="mb-3 col-sm-6">
+                                        
+                                        <input name="code" type="tel"
+                                            class="form-control @error('code') is-invalid @enderror"
+                                             id="code"
+                                             value="{{ old('code') }}"
+                                            autocomplete="code" autofocus>
+                                        @error('code')
+                                            <span class="invalid-feedback code-error" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    <div class="col-sm-3"></div>
+                                </div>
+                                <div class="p-2">
+                                    
 
-                                        <div class="text-end">
+                                        <div class="text-center">
                                             <button class="btn btn-primary w-md waves-effect waves-light"
-                                                type="submit">{{ __('click here to request another') }}</button>
+                                                type="submit">{{ __('Next') }}</button>
                                         </div>
                                         
-                                    </form>
                                 </div>
+                                </form>
 
                             </div>
                         </div>
                         <div class="mt-5 text-center">
-                            <p>Remember It ? <a href="{{ url('login') }}" class="fw-medium text-primary"> Sign In here</a> </p>
                             <p>© <script>
-                                    document.write(new Date().getFullYear())
+                                        document.write(new Date().getFullYear())
 
-                                </script> Skote. Crafted with <i class="mdi mdi-heart text-danger"></i> by Themesbrand</p>
+                                    </script> Dealpipes. Rei Media LLC <i class="mdi mdi-heart text-danger"></i> 
+                                </p>
                         </div>
 
                     </div>

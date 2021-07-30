@@ -4,7 +4,7 @@ use App\Mail\TestMailHog;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
-
+use Illuminate\Support\Facades\Session;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,10 +31,19 @@ Route::get('/', function () {
 Route::get('dashboard', [App\Http\Controllers\AdminController::class, 'index'])->name('index');
 
 Route::get('signup', function(){
-  return view('auth/signup');
+  return view('auth.signup');
 })->name('signup');
 
 Route::post('signup', [App\Http\Controllers\Auth\RegisterController::class, 'signup'])->name('signup');
+
+Route::get('verifyEmail', function(){
+  if (Session::has('user_info'))
+    return view('auth.verifyEmail');
+  else
+    redirect('signup');
+});
+
+Route::post('verifyEmail', [App\Http\Controllers\Auth\RegisterController::class, 'verifyEmail']);
 
 Route::get('login', function(){
   Auth::loginUsingId(1);
