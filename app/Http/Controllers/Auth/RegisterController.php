@@ -26,7 +26,7 @@ class RegisterController extends Controller
 
        // $html = view('emailTemplate.verifyEmail',$post)->render();
         
-         $email='vikas93408@gmail.com';
+         $email=$request->get('email');
          $name ='vikas';
          Mail::send('emailTemplate.verifyEmail', $post, function($message) use($email , $name) {
             $message->to($email, $name)->subject('My Testing Mail ');
@@ -54,7 +54,13 @@ class RegisterController extends Controller
         ]);   
 
         $user_info = session::get('user_info');
+        if($request->input('code') == $user_info['code'])
+        {
 
+//echo "<pre>";print_r($user_info);
+//print_r($request->input('code'));
+       
+//die;
             $account_sid = getenv("TWILIO_SID");
             $auth_token = getenv("TWILIO_AUTH_TOKEN");
             $twilio_number = getenv("TWILIO_NUMBER");
@@ -68,25 +74,34 @@ class RegisterController extends Controller
 
             if(isset($sms_send) && !empty($sms_send)){
                 $post['phone_code'] = $num;
-                         Session::put('user_info',$post);
+                         Session::put('user_info1',$post);
                  return  redirect('verifyPhoneForm');
             }
+        }else{
+              return redirect('verifyEmail')->with('error','verification code is invalid');
+        }
     }
 
     public function verifyPhoneForm(Request $request){
                 $user_info = session::get('user_info');
-                if(isset($user_info) && !empty($user_info)){
+                $user_info1 = session::get('user_info1');
+                $phone_code = $user_info1['phone_code'];
+                
+                if(isset($phone_code)&& !empty($phone_code)){
                     return view('auth.verifyPhone');
                 }else{
-                    redirect('signup');
+                    return redirect('signup');
                 }
     }
     public function verifyPhone(Request $request){
                 $user_info = session::get('user_info');
-                if(isset($user_info) && !empty($user_info)){
-                    echo "<pre>";print_r($user_info);
+                $user_info1 = session::get('user_info1');
+                $phone_code = $user_info1['phone_code'];
+                
+                if($request->input('code') == $phone_code){
+                   echo "<pre>";var_dump($user_info);die;
                 }else{
-                    redirect('signup');
+                    return redirect('verifyPhoneForm')->with('error','verification code is invalid');           
                 }
     }
 }

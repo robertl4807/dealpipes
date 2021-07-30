@@ -46,6 +46,9 @@
                                 @endif
 
                                 {{ __('Before proceeding, please check your email for a verification code.') }}
+                                
+                               @include('flash-message')
+
                                 <form class="form-horizontal" method="POST" action="{{URL::to('verifyPhone')}}">
                                         @csrf
                                 <div class="row">
