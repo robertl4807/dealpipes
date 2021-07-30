@@ -45,6 +45,10 @@ Route::get('verifyEmail', function(){
 
 Route::post('verifyEmail', [App\Http\Controllers\Auth\RegisterController::class, 'verifyEmail']);
 
+Route::get('verifyPhoneForm','App\Http\Controllers\Auth\RegisterController@verifyPhoneForm');
+Route::post('verifyPhone','App\Http\Controllers\Auth\RegisterController@verifyPhone');
+
+
 Route::get('login', function(){
   Auth::loginUsingId(1);
   return 'Logged In Now';
