@@ -1,7 +1,7 @@
 @extends('layouts.master-without-nav')
 
 @section('title')
-    Verify Email
+    Select Plan
 @endsection
 
 @section('body')
@@ -19,11 +19,10 @@
                                 <div class="row">
                                     <div class="col-7">
                                         <div class="text-primary p-4">
-                                            <h5 class="text-primary"> Verify Email</h5>
+                                            <h5 class="text-primary"> Select Plan</h5>
                                             
                                         </div>
                                     </div>
-
                                     <div class="col-5 align-self-end">
                                         <img src="{{ URL::asset('/assets/images/profile-img.png') }}" alt="" class="img-fluid">
                                     </div>
@@ -46,21 +45,22 @@
                                     </div>
                                 @endif
 
-                                {{ __('Before proceeding, please check your email for a verification code.') }}
+                               <!--  {{ __('Before proceeding, please check your email for a verification code.') }} -->
                                 
-                                @include('flash-message')
+                               @include('flash-message')
 
-                                <form class="form-horizontal" method="POST" action="{{URL::to('verifyEmail')}}">
+                                <form class="form-horizontal" method="POST" action="{{URL::to('selectPlanSubmit')}}">
                                         @csrf
                                 <div class="row">
                                 <div class="col-sm-3"></div>
                                     <div class="mb-3 col-sm-6">
                                         
-                                        <input name="code" type="tel"
-                                            class="form-control @error('code') is-invalid @enderror"
+                                        <input checked name="code" type="radio"
+                                            class="form-check-input @error('code') is-invalid @enderror"
                                              id="code"
-                                             value="{{ old('code') }}"
-                                            autocomplete="code" autofocus>
+                                             value="49.99"
+                                            autocomplete="code" >
+                                           <spna> $49.99 month </spna>
                                         @error('code')
                                             <span class="invalid-feedback code-error" role="alert">
                                                 <strong>{{ $message }}</strong>

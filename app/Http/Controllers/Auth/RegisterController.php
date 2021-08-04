@@ -54,19 +54,26 @@ class RegisterController extends Controller
         ]);   
 
         $user_info = session::get('user_info');
+        
         if($request->input('code') == $user_info['code'])
         {
 
-//echo "<pre>";print_r($user_info);
-//print_r($request->input('code'));
+// echo "<pre>";print_r($user_info);
+// print_r($request->input('code'));
        
-//die;
+//  die;
             $account_sid = getenv("TWILIO_SID");
             $auth_token = getenv("TWILIO_AUTH_TOKEN");
             $twilio_number = getenv("TWILIO_NUMBER");
             $client = new Client($account_sid, $auth_token);
 
-            $recipients= "+919340813734";
+            $recipients= $user_info['phone'];
+
+            //$phone_number = $client->lookups->v1->phoneNumbers($recipients)->fetch(["countryCode" => "IN"]);
+
+            // print($phone_number->phoneNumber);
+            // die;
+
             $num= str_pad(mt_rand(1,99999999),8,'0',STR_PAD_LEFT);
             $message = "Your verification code is : ".$num;
             $sms_send = $client->messages->create($recipients, 
@@ -75,33 +82,53 @@ class RegisterController extends Controller
             if(isset($sms_send) && !empty($sms_send)){
                 $post['phone_code'] = $num;
                          Session::put('user_info1',$post);
-                 return  redirect('verifyPhoneForm');
+                 return  redirect('verifyPhone');
             }
         }else{
               return redirect('verifyEmail')->with('error','verification code is invalid');
         }
     }
 
-    public function verifyPhoneForm(Request $request){
+    public function verifyPhone(Request $request){
                 $user_info = session::get('user_info');
                 $user_info1 = session::get('user_info1');
-                $phone_code = $user_info1['phone_code'];
                 
-                if(isset($phone_code)&& !empty($phone_code)){
+                if(isset($user_info1['phone_code'])&& !empty($user_info1['phone_code'])){
                     return view('auth.verifyPhone');
                 }else{
                     return redirect('signup');
                 }
     }
-    public function verifyPhone(Request $request){
+    public function verifyPhoneSubmit(Request $request){
                 $user_info = session::get('user_info');
                 $user_info1 = session::get('user_info1');
                 $phone_code = $user_info1['phone_code'];
                 
                 if($request->input('code') == $phone_code){
-                   echo "<pre>";var_dump($user_info);die;
+                    return redirect('selectPlan');
                 }else{
-                    return redirect('verifyPhoneForm')->with('error','verification code is invalid');           
+                    return redirect('verifyPhone')->with('error','verification code is invalid');           
                 }
+    }
+    public function selectPlan(Request $request){
+                $user_info = session::get('user_info');
+                $user_info1 = session::get('user_info1');
+                if(isset($user_info) && !empty($user_info))
+                return view('auth.selectPlan');
+                else
+                return redirect('signup');
+
+    }
+    public function selectPlanSubmit(Request $request){
+                $user_info = session::get('user_info');
+                $user_info1 = session::get('user_info1');
+                $plan = $request->input('code');  
+                if(isset($plan) && !empty($plan))
+                {
+                    echo "<pre>";var_dump($user_info);var_dump($user_info1);
+                    echo $plan;  
+                }else{
+                     return redirect('selectPlan')->with('error','Oops error !');
+                }              
     }
 }

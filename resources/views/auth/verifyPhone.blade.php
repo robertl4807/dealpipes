@@ -1,7 +1,7 @@
 @extends('layouts.master-without-nav')
 
 @section('title')
-    Verify Password
+    Verify Phone
 @endsection
 
 @section('body')
@@ -45,11 +45,11 @@
                                     </div>
                                 @endif
 
-                                {{ __('Before proceeding, please check your email for a verification code.') }}
+                                {{ __('Before proceeding, please check your Phone for a verification code.') }}
                                 
                                @include('flash-message')
 
-                                <form class="form-horizontal" method="POST" action="{{URL::to('verifyPhone')}}">
+                                <form class="form-horizontal" method="POST" action="{{URL::to('verifyPhoneSubmit')}}">
                                         @csrf
                                 <div class="row">
                                 <div class="col-sm-3"></div>

@@ -40,14 +40,15 @@ Route::get('verifyEmail', function(){
   if (Session::has('user_info'))
     return view('auth.verifyEmail');
   else
-    redirect('signup');
+   return redirect('signup');
 });
 
 Route::post('verifyEmail', [App\Http\Controllers\Auth\RegisterController::class, 'verifyEmail']);
 
-Route::get('verifyPhoneForm','App\Http\Controllers\Auth\RegisterController@verifyPhoneForm');
-Route::post('verifyPhone','App\Http\Controllers\Auth\RegisterController@verifyPhone');
-
+Route::get('verifyPhone','App\Http\Controllers\Auth\RegisterController@verifyPhone');
+Route::post('verifyPhoneSubmit','App\Http\Controllers\Auth\RegisterController@verifyPhoneSubmit');
+Route::get('selectPlan','App\Http\Controllers\Auth\RegisterController@selectPlan');
+Route::post('selectPlanSubmit','App\Http\Controllers\Auth\RegisterController@selectPlanSubmit');
 
 Route::get('login', function(){
   Auth::loginUsingId(1);
