@@ -17,9 +17,24 @@ class RegisterController extends Controller
     public function signup(SignupRequest $request){
         
         $validated = $request->validated();
-        
+            
         $post = $request->all();
-       
+        //validate for twilio number start
+            if(ctype_digit($post['phone'])){
+                $post['phone'] =  $post['phonecode'].$post['phone'];
+            }
+            if(preg_match('/\s/',$post['phone']) && ($post['phone']{0} != "+")){
+                    $post['phone'] =  str_replace(' ', '', $post['phonecode'].$post['phone']);
+            }
+            if($post['phone'][0] == "+"){
+                    $post['phone'] =  str_replace(' ', '',$post['phone']);
+            }
+            if(($post['phone'][0] == 0)){
+                $val = substr($post['phone'],1);
+                $val =  str_replace(' ', '', $post['phonecode'].$val);
+            }
+        //validate for twilio number end    
+        //echo "<pre>";print_r($post);die;
         $post['code'] = str_pad(mt_rand(1,99999999),8,'0',STR_PAD_LEFT);
 
         Session::put('user_info',$post);
@@ -46,7 +61,12 @@ class RegisterController extends Controller
         //End mail code
        return  redirect('verifyEmail');
     }
-
+    public function verifyEmailFrm(Request $request){
+         if (Session::has('user_info'))
+            return view('auth.verifyEmail');
+          else
+           return redirect('signup');
+    }
     public function verifyEmail(Request $request){
 
         $validated = $request->validate([
@@ -62,9 +82,9 @@ class RegisterController extends Controller
 // print_r($request->input('code'));
        
 //  die;
-            $account_sid = getenv("TWILIO_SID");
-            $auth_token = getenv("TWILIO_AUTH_TOKEN");
-            $twilio_number = getenv("TWILIO_NUMBER");
+            $account_sid = config("devRequest.TWILIO_SID");
+            $auth_token = config("devRequest.TWILIO_AUTH_TOKEN");
+            $twilio_number = config("devRequest.TWILIO_NUMBER");
             $client = new Client($account_sid, $auth_token);
 
             $recipients= $user_info['phone'];

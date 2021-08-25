@@ -101,6 +101,7 @@
                                         </div>
                                         <div class="mb-3">
                                             <label for="username" class="form-label">Phone</label>
+                                            <input type="hidden" name="phonecode" value=""  class="phonecode">
                                             <input name="phone" type="tel"
                                                 class="form-control @error('phone') is-invalid @enderror"
                                                  id="phone"
@@ -128,7 +129,7 @@
                                         </div>
 
                                         <div class="mt-3 d-grid">
-                                            <button class="btn btn-primary waves-effect waves-light" type="submit">Next</button>
+                                            <button class="btn btn-primary waves-effect waves-light send_2frm" type="submit">Next</button>
                                         </div>
 
                                         
@@ -192,5 +193,21 @@ function process(event) {
         return true;
         
 }
+
+$(document).ready(function(){
+    $(document).on('keyup','#phone',function(){
+        var code  = $('.iti__selected-flag').attr('title');
+        var arr = code.split('+');
+        $('.phonecode').val(arr[1]);
+        process();
+    })
+    $(document).on('click','.send_2frm',function(){
+         process();
+         var code  = $('.iti__selected-flag').attr('title');
+         var arr = code.split('+');
+         $('.phonecode').val('+'+arr[1]);
+    })
+    
+})
 </script>
 @endsection

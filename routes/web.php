@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\Auth\RegisterController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,52 +25,22 @@ use Illuminate\Support\Facades\Session;
  *
  */
 
+Route::get('/', [AdminController::class,'home'])->name('home');
 
-Route::get('/', function () {
-  return view('home');
-});
+Route::get('dashboard', [AdminController::class,'index'])->name('index');
 
-Route::get('dashboard', [App\Http\Controllers\AdminController::class, 'index'])->name('index');
+Route::get('signup', [AdminController::class,'signupfrm'])->name('signup');
 
-Route::get('signup', function(){
-  return view('auth.signup');
-})->name('signup');
+Route::post('signup', [RegisterController::class,'signup'])->name('signup');
 
-Route::post('signup', [App\Http\Controllers\Auth\RegisterController::class, 'signup'])->name('signup');
+Route::get('verifyEmail', [RegisterController::class,'verifyEmailFrm']);
 
-Route::get('verifyEmail', function(){
-  if (Session::has('user_info'))
-    return view('auth.verifyEmail');
-  else
-   return redirect('signup');
-});
+Route::post('verifyEmail', [RegisterController::class,'verifyEmail']);
 
-Route::post('verifyEmail', [App\Http\Controllers\Auth\RegisterController::class, 'verifyEmail']);
+Route::get('verifyPhone',[RegisterController::class,'verifyPhone']);
 
-Route::get('verifyPhone','App\Http\Controllers\Auth\RegisterController@verifyPhone');
-Route::post('verifyPhoneSubmit','App\Http\Controllers\Auth\RegisterController@verifyPhoneSubmit');
-Route::get('selectPlan','App\Http\Controllers\Auth\RegisterController@selectPlan');
-Route::post('selectPlanSubmit','App\Http\Controllers\Auth\RegisterController@selectPlanSubmit');
+Route::post('verifyPhoneSubmit',[RegisterController::class,'verifyPhoneSubmit']);
 
-Route::get('login', function(){
-  Auth::loginUsingId(1);
-  return 'Logged In Now';
-});
+Route::get('selectPlan',[RegisterController::class,'selectPlan']);
 
-
-Route::get('logout', function(){
-  Auth::logout();
-  return 'Logged Out';
-});
-
-Route::middleware('can:send_sms')->get('/1', function () {
-  return 'YES';
-});
-
-Route::get('test-mailhog', function(){
-  Mail::to('info@dealpipes.test')->send(new TestMailHog());
-  return 'Sent email - '.rand(1,10000);
-});
-
-
-Route::get('index/{locale}', [App\Http\Controllers\AdminController::class, 'lang']);
+Route::post('selectPlanSubmit',[RegisterController::class,'selectPlanSubmit']);
