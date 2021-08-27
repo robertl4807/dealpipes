@@ -13,7 +13,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+      $this->app->singleton('twilio', function(){
+        return new \Twilio\Rest\Client( config("apikeys.TWILIO_SID"), config("apikeys.TWILIO_AUTH_TOKEN") );
+      });
+      
     }
 
     /**
@@ -23,6 +26,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+      date_default_timezone_set( config('app.timezone') );
     }
 }

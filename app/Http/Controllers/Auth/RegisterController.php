@@ -22,9 +22,9 @@ class RegisterController extends Controller
             $this->TWILIO_SID = $this->CredArr['TWILIO_SID'];
     }
     public function signup(SignupRequest $request){
-        
+
         $validated = $request->validated();
-            
+
         $post = $request->all();
         //validate for twilio number start
             if(ctype_digit($post['phone'])){
@@ -40,14 +40,14 @@ class RegisterController extends Controller
                 $val = substr($post['phone'],1);
                 $val =  str_replace(' ', '', $post['phonecode'].$val);
             }
-        //validate for twilio number end    
+        //validate for twilio number end
         //echo "<pre>";print_r($post);die;
         $post['code'] = str_pad(mt_rand(1,99999999),8,'0',STR_PAD_LEFT);
 
         Session::put('user_info',$post);
 
        // $html = view('emailTemplate.verifyEmail',$post)->render();
-        
+
          $email=$request->get('email');
          $name ='vikas';
          Mail::send('emailTemplate.verifyEmail', $post, function($message) use($email , $name) {
@@ -78,19 +78,19 @@ class RegisterController extends Controller
 
         $validated = $request->validate([
             'code' => 'required',
-        ]);   
+        ]);
 
         $user_info = session::get('user_info');
-        
+
         if($request->input('code') == $user_info['code'])
         {
 
 // echo "<pre>";print_r($this->CredArr);
 // //print_r($request->input('code'));
-       
+
 //  die;
-            
-            $client = new Client($this->TWILIO_SID, $this->TWILIO_AUTH_TOKEN);
+
+            $client = app('twilio');
 
             $recipients= $user_info['phone'];
 
@@ -100,9 +100,9 @@ class RegisterController extends Controller
             // die;
 
             $num= str_pad(mt_rand(1,99999999),8,'0',STR_PAD_LEFT);
-            $message = "Your verification code is : ".$num;
-            $sms_send = $client->messages->create($recipients, 
-                ['from' => $this->TWILIO_NUMBER, 'body' => $message] );
+            $message = "Your verification code is: ".$num;
+            $sms_send = $client->messages->create($recipients,
+                ['from' => config('apikeys.TWILIO_NUMBER'), 'body' => $message] );
 
             if(isset($sms_send) && !empty($sms_send)){
                 $post['phone_code'] = $num;
@@ -117,7 +117,7 @@ class RegisterController extends Controller
     public function verifyPhone(Request $request){
                 $user_info = session::get('user_info');
                 $user_info1 = session::get('user_info1');
-                
+
                 if(isset($user_info1['phone_code'])&& !empty($user_info1['phone_code'])){
                     return view('auth.verifyPhone');
                 }else{
@@ -128,11 +128,11 @@ class RegisterController extends Controller
                 $user_info = session::get('user_info');
                 $user_info1 = session::get('user_info1');
                 $phone_code = $user_info1['phone_code'];
-                
+
                 if($request->input('code') == $phone_code){
                     return redirect('selectPlan');
                 }else{
-                    return redirect('verifyPhone')->with('error','verification code is invalid');           
+                    return redirect('verifyPhone')->with('error','verification code is invalid');
                 }
     }
     public function selectPlan(Request $request){
@@ -147,13 +147,13 @@ class RegisterController extends Controller
     public function selectPlanSubmit(Request $request){
                 $user_info = session::get('user_info');
                 $user_info1 = session::get('user_info1');
-                $plan = $request->input('code');  
+                $plan = $request->input('code');
                 if(isset($plan) && !empty($plan))
                 {
                     echo "<pre>";var_dump($user_info);var_dump($user_info1);
-                    echo $plan;  
+                    echo $plan;
                 }else{
                      return redirect('selectPlan')->with('error','Oops error !');
-                }              
+                }
     }
 }
