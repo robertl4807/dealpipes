@@ -11,9 +11,16 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 use Twilio\Rest\Client;
+use App\Support\TwilioCredentials;
 
 class RegisterController extends Controller
 {
+    public function __construct(){
+            $this->CredArr = TwilioCredentials::Credentials();
+            $this->TWILIO_AUTH_TOKEN = $this->CredArr['TWILIO_AUTH_TOKEN'];
+            $this->TWILIO_NUMBER = $this->CredArr['TWILIO_NUMBER'];
+            $this->TWILIO_SID = $this->CredArr['TWILIO_SID'];
+    }
     public function signup(SignupRequest $request){
         
         $validated = $request->validated();
@@ -78,14 +85,12 @@ class RegisterController extends Controller
         if($request->input('code') == $user_info['code'])
         {
 
-// echo "<pre>";print_r($user_info);
-// print_r($request->input('code'));
+// echo "<pre>";print_r($this->CredArr);
+// //print_r($request->input('code'));
        
 //  die;
-            $account_sid = config("devRequest.TWILIO_SID");
-            $auth_token = config("devRequest.TWILIO_AUTH_TOKEN");
-            $twilio_number = config("devRequest.TWILIO_NUMBER");
-            $client = new Client($account_sid, $auth_token);
+            
+            $client = new Client($this->TWILIO_SID, $this->TWILIO_AUTH_TOKEN);
 
             $recipients= $user_info['phone'];
 
@@ -97,7 +102,7 @@ class RegisterController extends Controller
             $num= str_pad(mt_rand(1,99999999),8,'0',STR_PAD_LEFT);
             $message = "Your verification code is : ".$num;
             $sms_send = $client->messages->create($recipients, 
-                ['from' => $twilio_number, 'body' => $message] );
+                ['from' => $this->TWILIO_NUMBER, 'body' => $message] );
 
             if(isset($sms_send) && !empty($sms_send)){
                 $post['phone_code'] = $num;

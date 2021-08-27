@@ -29,7 +29,7 @@ Route::get('/', [AdminController::class,'home'])->name('home');
 
 Route::get('dashboard', [AdminController::class,'index'])->name('index');
 
-Route::get('signup', [AdminController::class,'signupfrm'])->name('signup');
+Route::view('signup', 'auth.signup')->name('signup');
 
 Route::post('signup', [RegisterController::class,'signup'])->name('signup');
 

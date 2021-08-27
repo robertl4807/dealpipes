@@ -16,9 +16,6 @@ class AdminController extends Controller
     public function home(Request $request){
         return view('home');
     }
-    public function signupfrm(Request $request){
-        return view('auth.signup');
-    }
     public function lang($locale)
     {
         if ($locale) {
