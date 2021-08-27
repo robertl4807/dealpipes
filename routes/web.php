@@ -57,3 +57,13 @@ Route::get('test-mailhog', function(){
   Mail::to('info@dealpipes.test')->send(new TestMailHog());
   return 'Sent email - '.rand(1,10000);
 });
+Route::get('send-sms', function(){
+  return config('apikeys.TWILIO_NUMBER');
+  $twilio = app('twilio');
+  //add number to test
+  $message = $twilio->messages->create('+1', [
+    "body" => 'This is a test text from dealpipes.',
+    "from" => config('apikeys.TWILIO_NUMBER')
+  ]);
+  dd($message);
+});
