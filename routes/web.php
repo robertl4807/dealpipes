@@ -4,7 +4,6 @@ use App\Mail\TestMailHog;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\RegisterController;
 /*
@@ -44,3 +43,17 @@ Route::post('verifyPhoneSubmit',[RegisterController::class,'verifyPhoneSubmit'])
 Route::get('selectPlan',[RegisterController::class,'selectPlan']);
 
 Route::post('selectPlanSubmit',[RegisterController::class,'selectPlanSubmit']);
+
+
+//Do not delete these
+Route::get('login', function(){
+  Auth::loginUsingId(1);
+  return 'Logged In Now';
+});
+Route::middleware('can:send_sms')->get('/1', function () {
+  return 'YES';
+});
+Route::get('test-mailhog', function(){
+  Mail::to('info@dealpipes.test')->send(new TestMailHog());
+  return 'Sent email - '.rand(1,10000);
+});
