@@ -11,15 +11,11 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Hash;
 use Twilio\Rest\Client;
-use App\Support\TwilioCredentials;
 
 class RegisterController extends Controller
 {
     public function __construct(){
-            $this->CredArr = TwilioCredentials::Credentials();
-            $this->TWILIO_AUTH_TOKEN = $this->CredArr['TWILIO_AUTH_TOKEN'];
-            $this->TWILIO_NUMBER = $this->CredArr['TWILIO_NUMBER'];
-            $this->TWILIO_SID = $this->CredArr['TWILIO_SID'];
+    
     }
     public function signup(SignupRequest $request){
 
@@ -84,20 +80,12 @@ class RegisterController extends Controller
 
         if($request->input('code') == $user_info['code'])
         {
-
-// echo "<pre>";print_r($this->CredArr);
-// //print_r($request->input('code'));
-
-//  die;
-
+            // echo "<pre>";print_r($this->CredArr);
+            // //print_r($request->input('code'));
+            //  die;
             $client = app('twilio');
 
             $recipients= $user_info['phone'];
-
-            //$phone_number = $client->lookups->v1->phoneNumbers($recipients)->fetch(["countryCode" => "IN"]);
-
-            // print($phone_number->phoneNumber);
-            // die;
 
             $num= str_pad(mt_rand(1,99999999),8,'0',STR_PAD_LEFT);
             $message = "Your verification code is: ".$num;
